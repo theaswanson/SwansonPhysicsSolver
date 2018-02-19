@@ -78,6 +78,43 @@ namespace Physics
                 exhausted = false;
                 solvedSomething = false;
 
+                // if initial x, final x, and velocity exist
+                // distance, time, velocity
+
+                if (!hasFinalX && Convert.ToInt32(hasT) == 1 && (Convert.ToInt32(hasInitialV) + Convert.ToInt32(hasFinalV)) == 1)
+                {
+                    if (!hasInitialX)
+                    {
+                        InitialX = 0;
+                        InitialXTextBox.Text = InitialX.ToString();
+                    }
+                    
+                    if (hasInitialV)
+                    {
+                        FinalX = InitialV * T;
+                        FinalXTextBox.Text = FinalX.ToString();
+
+                        FinalV = InitialV;
+                        FinalVTextBox.Text = FinalV.ToString();
+
+                        hasFinalV = true;
+                    }
+                    else if (hasFinalV)
+                    {
+                        FinalX = FinalV * T;
+                        FinalXTextBox.Text = FinalX.ToString();
+
+                        InitialV = FinalV;
+                        InitialVTextBox.Text = InitialV.ToString();
+
+                        hasInitialV = true;
+                    }
+                    
+                    hasInitialX = true;
+                    hasFinalX = true;
+                    solvedSomething = true;
+                }
+
                 // if 3 of 4 variables exist for equation 1
                 if (Convert.ToInt32(hasFinalV) + Convert.ToInt32(hasInitialV) + Convert.ToInt32(hasA) + Convert.ToInt32(hasT) == 3)
                 {
